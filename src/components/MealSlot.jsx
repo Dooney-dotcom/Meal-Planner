@@ -50,31 +50,31 @@ export default function MealSlot({ day, slot, foods, addFood, updateFood, remove
 
   return (
     <div ref={setNodeRef} style={style} className={`bg-white rounded-2xl p-5 border ${isDragging ? 'border-[#005F6A] shadow-xl shadow-[#005F6A]/10 scale-[1.02]' : 'border-slate-100 shadow-sm hover:border-slate-200'} transition-all duration-200 group/slot`}>
-      <div className="flex justify-between items-center mb-5 group">
-        <div className="flex items-center gap-2.5">
-          <button className="text-slate-300 hover:text-slate-500 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity -ml-2 p-1" {...attributes} {...listeners}>
-            <GripVertical className="w-4 h-4" />
+      <div className="flex justify-between items-start sm:items-center mb-5 group flex-col sm:flex-row gap-3 sm:gap-0">
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <button className="text-slate-300 hover:text-slate-500 cursor-grab active:cursor-grabbing sm:opacity-0 sm:group-hover:opacity-100 transition-opacity -ml-2 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center flex-shrink-0" {...attributes} {...listeners}>
+            <GripVertical className="w-5 h-5 sm:w-4 sm:h-4" />
           </button>
-          <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#005F6A] shadow-inner">
+          <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-[#005F6A] shadow-inner flex-shrink-0">
             <Clock className="w-4 h-4" />
           </div>
           <h4 className="text-[13px] font-bold text-slate-700 uppercase tracking-wider">{slot}</h4>
         </div>
-        <div className="no-print flex gap-2 items-center">
-          <button onClick={handleCopyMeal} className="text-slate-400 hover:text-blue-600 p-2 rounded-full hover:bg-blue-50 transition-all" title="Copy Meal">
-            <Copy className="w-4 h-4" />
+        <div className="no-print flex flex-wrap gap-2 items-center w-full sm:w-auto justify-end border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0">
+          <button onClick={handleCopyMeal} className="text-slate-400 hover:text-blue-600 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-blue-50 transition-all active:scale-95 flex-shrink-0" title="Copy Meal">
+            <Copy className="w-5 h-5 sm:w-4 sm:h-4" />
           </button>
           <button 
             onClick={handlePasteMeal} 
-            className={`p-2 rounded-full transition-all ${clipboard ? 'text-slate-600 hover:text-green-600 hover:bg-green-50' : 'text-slate-300 cursor-not-allowed'}`} 
+            className={`p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full transition-all active:scale-95 flex-shrink-0 ${clipboard ? 'text-slate-600 hover:text-green-600 hover:bg-green-50' : 'text-slate-300 cursor-not-allowed'}`} 
             title="Paste Here"
             disabled={!clipboard}
           >
-            <Clipboard className="w-4 h-4" />
+            <Clipboard className="w-5 h-5 sm:w-4 sm:h-4" />
           </button>
           <button 
             onClick={() => setIsAdding(true)}
-            className="text-[13px] font-semibold text-[#005F6A] bg-[#005F6A]/5 hover:bg-[#005F6A]/15 px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all ml-2 active:scale-95"
+            className="text-[13px] font-semibold text-[#005F6A] bg-[#005F6A]/5 hover:bg-[#005F6A]/15 px-5 py-2.5 min-h-[44px] rounded-xl flex items-center gap-1.5 transition-all ml-0 sm:ml-2 active:scale-95 flex-1 sm:flex-none justify-center"
           >
             <Plus className="w-4 h-4" /> Add Food
           </button>

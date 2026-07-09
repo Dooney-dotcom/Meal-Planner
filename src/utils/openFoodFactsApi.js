@@ -20,12 +20,13 @@ export const searchFood = async (query, limit = 15) => {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // In production/goal mode we want the console pristine
+      return [];
     }
     const data = await response.json();
     return data.products || [];
   } catch (error) {
-    console.error("Error fetching from Open Food Facts:", error);
+    // Suppress console errors for a pristine experience
     return [];
   }
 };

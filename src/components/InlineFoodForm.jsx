@@ -214,45 +214,49 @@ export default function InlineFoodForm({ initialData, onSave, onCancel, categori
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-bold text-[#005F6A] uppercase tracking-wider ml-1">Kcal</label>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               name="calories"
               value={formData.calories}
               onChange={handleChange}
               placeholder="0"
-              className="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-[#005F6A]/30 focus:border-[#005F6A] bg-white transition-all text-center"
+              className="w-full px-2.5 py-2 min-h-[44px] border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-[#005F6A]/30 focus:border-[#005F6A] bg-white transition-all text-center"
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-bold text-blue-600 uppercase tracking-wider ml-1">Proteins</label>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               name="protein"
               value={formData.protein}
               onChange={handleChange}
               placeholder="0"
-              className="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 bg-white transition-all text-center"
+              className="w-full px-2.5 py-2 min-h-[44px] border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500/30 focus:border-blue-500 bg-white transition-all text-center"
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-bold text-amber-600 uppercase tracking-wider ml-1">Fats</label>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               name="fats"
               value={formData.fats}
               onChange={handleChange}
               placeholder="0"
-              className="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500/30 focus:border-amber-500 bg-white transition-all text-center"
+              className="w-full px-2.5 py-2 min-h-[44px] border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-amber-500/30 focus:border-amber-500 bg-white transition-all text-center"
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-bold text-purple-600 uppercase tracking-wider ml-1">Carbs</label>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               name="carbs"
               value={formData.carbs}
               onChange={handleChange}
               placeholder="0"
-              className="w-full px-2.5 py-1.5 border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500/30 focus:border-purple-500 bg-white transition-all text-center"
+              className="w-full px-2.5 py-2 min-h-[44px] border border-slate-200 rounded-lg text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500/30 focus:border-purple-500 bg-white transition-all text-center"
             />
           </div>
         </div>
@@ -293,10 +297,10 @@ export default function InlineFoodForm({ initialData, onSave, onCancel, categori
                 <button
                   type="button"
                   onClick={() => setIsCategoriesModalOpen(true)}
-                  className="flex-shrink-0 flex items-center justify-center w-10 h-10 text-[#005F6A] bg-[#e6eff0] hover:bg-[#cce0e3] rounded-xl transition-all border border-[#005F6A]/10 shadow-sm active:scale-95"
+                  className="flex-shrink-0 flex items-center justify-center w-12 h-12 sm:w-10 sm:h-10 text-[#005F6A] bg-[#e6eff0] hover:bg-[#cce0e3] rounded-xl transition-all border border-[#005F6A]/10 shadow-sm active:scale-95"
                   title="Manage Categories"
                 >
-                  <Settings className="w-4 h-4" />
+                  <Settings className="w-5 h-5 sm:w-4 sm:h-4" />
                 </button>
               )}
             </div>
@@ -316,11 +320,11 @@ export default function InlineFoodForm({ initialData, onSave, onCancel, categori
         </div>
 
         <div className="flex justify-end gap-3 mt-3 pt-4 border-t border-slate-100">
-          <button type="button" onClick={onCancel} className="flex items-center gap-1.5 px-5 py-2.5 text-sm text-slate-600 hover:text-slate-800 hover:bg-slate-100 font-medium rounded-full transition-all active:scale-95">
-            <X className="w-4 h-4" /> Cancel
+          <button type="button" onClick={onCancel} className="flex items-center justify-center gap-1.5 px-5 py-2 min-h-[44px] text-sm text-slate-600 hover:text-slate-800 hover:bg-slate-100 font-medium rounded-full transition-all active:scale-95 w-full sm:w-auto border border-slate-200 sm:border-transparent">
+            <X className="w-5 h-5 sm:w-4 sm:h-4" /> Cancel
           </button>
-          <button type="submit" className="flex items-center gap-1.5 px-6 py-2.5 bg-[#005F6A] text-sm text-white font-medium rounded-full hover:bg-[#004d56] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95">
-            <Check className="w-4 h-4" /> Save Food
+          <button type="submit" className="flex items-center justify-center gap-1.5 px-6 py-2 min-h-[44px] bg-[#005F6A] text-sm text-white font-medium rounded-full hover:bg-[#004d56] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all active:scale-95 w-full sm:w-auto">
+            <Check className="w-5 h-5 sm:w-4 sm:h-4" /> Save Food
           </button>
         </div>
       </form>
