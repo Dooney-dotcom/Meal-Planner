@@ -1,15 +1,13 @@
 import React from 'react';
-import { DAYS } from '../utils/mockData';
 import { Beef, Droplets, Wheat } from 'lucide-react';
 
 function WeeklySummary({ macros }) {
-  const totals = DAYS.reduce((acc, day) => {
-    acc.calories += Number(macros[day].calories) || 0;
-    acc.protein += Number(macros[day].protein) || 0;
-    acc.fats += Number(macros[day].fats) || 0;
-    acc.carbs += Number(macros[day].carbs) || 0;
-    return acc;
-  }, { calories: 0, protein: 0, fats: 0, carbs: 0 });
+  const totals = {
+    calories: Number(macros.calories) || 0,
+    protein: Number(macros.protein) || 0,
+    fats: Number(macros.fats) || 0,
+    carbs: Number(macros.carbs) || 0,
+  };
 
   const totalGrams = totals.protein + totals.fats + totals.carbs;
   const pPct = totalGrams ? (totals.protein / totalGrams) * 100 : 0;
@@ -31,7 +29,7 @@ function WeeklySummary({ macros }) {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 print-avoid-break">
-      <h2 className="text-xl font-bold text-[#005F6A] mb-8 tracking-tight text-center border-b border-slate-100 pb-4">Weekly Macros</h2>
+      <h2 className="text-xl font-bold text-[#005F6A] mb-8 tracking-tight text-center border-b border-slate-100 pb-4">Weekly Actual Macros</h2>
       
       <div className="relative w-48 h-48 mx-auto mb-10">
         <svg viewBox="0 0 42 42" className="w-full h-full transform -rotate-90">

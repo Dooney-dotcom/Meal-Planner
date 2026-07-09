@@ -17,7 +17,7 @@ export default function CategoriesModal({ isOpen, onClose, categories, setCatego
     if (!newName.trim()) return;
     setCategories([
       ...categories,
-      { id: Date.now().toString(), name: newName.trim(), color: newColor }
+      { id: crypto.randomUUID(), name: newName.trim(), color: newColor }
     ]);
     setNewName('');
     setNewColor(PRESET_COLORS[0].value);

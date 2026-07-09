@@ -3,8 +3,9 @@ import AppLayout from './components/AppLayout';
 import MealPlanner from './components/MealPlanner';
 import ShoppingList from './components/ShoppingList';
 import CompactWeeklyView from './components/CompactWeeklyView';
-import { initialMealsState, initialMacrosState, initialMealOrders } from './utils/mockData';
+import { initialMealsState, initialMealOrders } from './utils/mockData';
 import { INITIAL_CATEGORIES } from './utils/categories';
+import { computeWeeklyMacros, computeDailyMacros } from './utils/macroCalculator';
 
 const loadSavedState = (key, defaultState) => {
   try {
@@ -17,9 +18,8 @@ const loadSavedState = (key, defaultState) => {
 
 function App() {
   const [currentView, setCurrentView] = useState('planner'); // 'planner', 'shopping', or 'compact'
-  
+
   const [meals, setMeals] = useState(() => loadSavedState('mealPlanner_meals', initialMealsState));
-  const [macros, setMacros] = useState(() => loadSavedState('mealPlanner_macros', initialMacrosState));
   const [mealOrders, setMealOrders] = useState(() => loadSavedState('mealPlanner_mealOrders', initialMealOrders));
   const [categories, setCategories] = useState(() => loadSavedState('mealPlanner_categories', INITIAL_CATEGORIES));
   const [clipboard, setClipboard] = useState(null); // { type: 'food'|'meal', data: any }
@@ -29,16 +29,19 @@ function App() {
   }, [meals]);
 
   useEffect(() => {
-    localStorage.setItem('mealPlanner_macros', JSON.stringify(macros));
-  }, [macros]);
-
-  useEffect(() => {
     localStorage.setItem('mealPlanner_mealOrders', JSON.stringify(mealOrders));
   }, [mealOrders]);
 
   useEffect(() => {
     localStorage.setItem('mealPlanner_categories', JSON.stringify(categories));
   }, [categories]);
+
+  // Compute actual macros dynamically based on meals
+  const computedWeeklyMacros = computeWeeklyMacros(meals);
+  const computedDailyMacros = {};
+  Object.keys(meals).forEach(day => {
+    computedDailyMacros[day] = computeDailyMacros(meals[day]);
+  });
 
   const addFood = (day, meal, food) => {
     setMeals(prev => {
@@ -48,7 +51,7 @@ function App() {
         ...prev,
         [day]: {
           ...dayMeals,
-          [meal]: [...mealSlot, { ...food, id: Date.now().toString() }]
+          [meal]: [...mealSlot, { ...food, id: food.id || crypto.randomUUID() }]
         }
       };
     });
@@ -80,13 +83,6 @@ function App() {
         }
       };
     });
-  };
-
-  const updateMacros = (day, macrosForDay) => {
-    setMacros(prev => ({
-      ...prev,
-      [day]: macrosForDay
-    }));
   };
 
   const reorderFoods = (day, slot, startIndex, endIndex) => {
@@ -126,14 +122,6 @@ function App() {
       return newMeals;
     });
 
-    setMacros(prev => {
-      const newMacros = { ...prev };
-      const temp = newMacros[dayA];
-      newMacros[dayA] = newMacros[dayB];
-      newMacros[dayB] = temp;
-      return newMacros;
-    });
-
     setMealOrders(prev => {
       const newOrders = { ...prev };
       const temp = newOrders[dayA];
@@ -146,27 +134,27 @@ function App() {
   return (
     <AppLayout currentView={currentView} setCurrentView={setCurrentView}>
       {currentView === 'planner' ? (
-        <MealPlanner 
-          meals={meals} 
-          macros={macros} 
+        <MealPlanner
+          meals={meals}
+          computedDailyMacros={computedDailyMacros}
+          computedWeeklyMacros={computedWeeklyMacros}
           mealOrders={mealOrders}
           categories={categories}
           setCategories={setCategories}
           clipboard={clipboard}
           setClipboard={setClipboard}
-          addFood={addFood} 
-          updateFood={updateFood} 
-          removeFood={removeFood} 
-          updateMacros={updateMacros}
+          addFood={addFood}
+          updateFood={updateFood}
+          removeFood={removeFood}
           reorderFoods={reorderFoods}
           reorderMeals={reorderMeals}
           swapDays={swapDays}
         />
       ) : currentView === 'compact' ? (
-        <CompactWeeklyView 
-          meals={meals} 
-          mealOrders={mealOrders} 
-          categories={categories} 
+        <CompactWeeklyView
+          meals={meals}
+          mealOrders={mealOrders}
+          categories={categories}
         />
       ) : (
         <ShoppingList meals={meals} categories={categories} />

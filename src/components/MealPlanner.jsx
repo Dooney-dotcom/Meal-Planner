@@ -5,7 +5,7 @@ import DayCard from './DayCard';
 import WeeklySummary from './WeeklySummary';
 import { DAYS } from '../utils/mockData';
 
-function MealPlanner({ meals, macros, mealOrders, categories, setCategories, clipboard, setClipboard, addFood, updateFood, removeFood, updateMacros, reorderFoods, reorderMeals, swapDays }) {
+function MealPlanner({ meals, computedDailyMacros, computedWeeklyMacros, mealOrders, categories, setCategories, clipboard, setClipboard, addFood, updateFood, removeFood, reorderFoods, reorderMeals, swapDays }) {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
@@ -51,7 +51,7 @@ function MealPlanner({ meals, macros, mealOrders, categories, setCategories, cli
               key={day}
               day={day}
               meals={meals[day]}
-              macros={macros[day]}
+              macros={computedDailyMacros[day] || {calories:0, protein:0, carbs:0, fats:0}}
               mealOrders={mealOrders}
               categories={categories}
               setCategories={setCategories}
@@ -60,14 +60,13 @@ function MealPlanner({ meals, macros, mealOrders, categories, setCategories, cli
               addFood={addFood}
               updateFood={updateFood}
               removeFood={removeFood}
-              updateMacros={updateMacros}
               swapDays={swapDays}
             />
           ))}
         </div>
         <div className="w-full lg:w-80">
           <div className="sticky top-24">
-            <WeeklySummary macros={macros} />
+            <WeeklySummary macros={computedWeeklyMacros} />
           </div>
         </div>
       </div>

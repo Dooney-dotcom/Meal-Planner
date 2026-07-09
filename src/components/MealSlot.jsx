@@ -37,10 +37,10 @@ export default function MealSlot({ day, slot, foods, addFood, updateFood, remove
   const handlePasteMeal = () => {
     if (clipboard?.type === 'meal') {
       clipboard.data.forEach(food => {
-        addFood(day, slot, { ...food, id: Date.now().toString() + Math.random() });
+        addFood(day, slot, { ...food, id: crypto.randomUUID() });
       });
     } else if (clipboard?.type === 'food') {
-      addFood(day, slot, { ...clipboard.data, id: Date.now().toString() + Math.random() });
+      addFood(day, slot, { ...clipboard.data, id: crypto.randomUUID() });
     }
   };
 

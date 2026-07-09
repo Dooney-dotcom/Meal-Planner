@@ -4,13 +4,9 @@ import { ChevronDown, ChevronUp, ArrowRightLeft } from 'lucide-react';
 import MealSlot from './MealSlot';
 import { DAYS } from '../utils/mockData';
 
-function DayCard({ day, meals, macros, mealOrders, categories, setCategories, clipboard, setClipboard, addFood, updateFood, removeFood, updateMacros, swapDays }) {
+function DayCard({ day, meals, macros, mealOrders, categories, setCategories, clipboard, setClipboard, addFood, updateFood, removeFood, swapDays }) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [showSwapMenu, setShowSwapMenu] = useState(false);
-  
-  const handleMacroChange = (e) => {
-    updateMacros(day, { ...macros, [e.target.name]: e.target.value });
-  };
 
   const currentMealSlots = mealOrders[day] || [];
 
@@ -91,28 +87,28 @@ function DayCard({ day, meals, macros, mealOrders, categories, setCategories, cl
             </div>
           </SortableContext>
           
-          {/* Macros Input */}
+          {/* Actual Computed Macros */}
           <div className="pt-7 border-t border-slate-100 no-print">
             <h4 className="text-[11px] font-bold text-slate-400 mb-4 uppercase tracking-wider flex items-center gap-2">
-              Daily Target Macros
+              Daily Actual Macros
               <div className="h-px bg-slate-100 flex-1"></div>
             </h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 mb-1.5 ml-1 transition-colors group-focus-within:text-[#005F6A]">Calories</label>
-                <input type="number" name="calories" value={macros.calories} onChange={handleMacroChange} className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#005F6A]/20 focus:border-[#005F6A] text-slate-800 bg-slate-50/50 focus:bg-white transition-all shadow-sm" placeholder="kcal" />
+              <div className="bg-slate-50/80 px-4 py-3 rounded-xl border border-slate-100">
+                <span className="block text-[10px] font-bold text-[#005F6A] uppercase tracking-wider mb-1">Calories</span>
+                <span className="text-xl font-extrabold text-slate-700">{macros.calories || 0} <span className="text-sm font-medium text-slate-400">kcal</span></span>
               </div>
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 mb-1.5 ml-1 transition-colors group-focus-within:text-blue-500">Protein</label>
-                <input type="number" name="protein" value={macros.protein} onChange={handleMacroChange} className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-800 bg-slate-50/50 focus:bg-white transition-all shadow-sm" placeholder="g" />
+              <div className="bg-blue-50/50 px-4 py-3 rounded-xl border border-blue-100/50">
+                <span className="block text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-1">Protein</span>
+                <span className="text-xl font-extrabold text-slate-700">{macros.protein || 0} <span className="text-sm font-medium text-slate-400">g</span></span>
               </div>
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 mb-1.5 ml-1 transition-colors group-focus-within:text-amber-500">Fats</label>
-                <input type="number" name="fats" value={macros.fats} onChange={handleMacroChange} className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-slate-800 bg-slate-50/50 focus:bg-white transition-all shadow-sm" placeholder="g" />
+              <div className="bg-amber-50/50 px-4 py-3 rounded-xl border border-amber-100/50">
+                <span className="block text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Fats</span>
+                <span className="text-xl font-extrabold text-slate-700">{macros.fats || 0} <span className="text-sm font-medium text-slate-400">g</span></span>
               </div>
-              <div className="group">
-                <label className="block text-xs font-bold text-slate-500 mb-1.5 ml-1 transition-colors group-focus-within:text-purple-500">Carbs</label>
-                <input type="number" name="carbs" value={macros.carbs} onChange={handleMacroChange} className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-slate-800 bg-slate-50/50 focus:bg-white transition-all shadow-sm" placeholder="g" />
+              <div className="bg-purple-50/50 px-4 py-3 rounded-xl border border-purple-100/50">
+                <span className="block text-[10px] font-bold text-purple-600 uppercase tracking-wider mb-1">Carbs</span>
+                <span className="text-xl font-extrabold text-slate-700">{macros.carbs || 0} <span className="text-sm font-medium text-slate-400">g</span></span>
               </div>
             </div>
           </div>

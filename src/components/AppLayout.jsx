@@ -21,8 +21,8 @@ function AppLayout({ children, currentView, setCurrentView }) {
                 <button
                   onClick={() => setCurrentView('planner')}
                   className={`flex items-center gap-2 px-5 py-2 rounded-lg transition-all font-semibold text-sm ${currentView === 'planner'
-                      ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
-                      : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
+                    ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
+                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
                     }`}
                 >
                   <Calendar className="w-4 h-4" /> Planner
@@ -30,8 +30,8 @@ function AppLayout({ children, currentView, setCurrentView }) {
                 <button
                   onClick={() => setCurrentView('compact')}
                   className={`flex items-center gap-2 px-5 py-2 rounded-lg transition-all font-semibold text-sm ${currentView === 'compact'
-                      ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
-                      : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
+                    ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
+                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
                     }`}
                 >
                   <LayoutGrid className="w-4 h-4" /> Compact
@@ -39,8 +39,8 @@ function AppLayout({ children, currentView, setCurrentView }) {
                 <button
                   onClick={() => setCurrentView('shopping')}
                   className={`flex items-center gap-2 px-5 py-2 rounded-lg transition-all font-semibold text-sm ${currentView === 'shopping'
-                      ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
-                      : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
+                    ? 'bg-white text-[#005F6A] shadow-sm border border-slate-200/50 scale-100'
+                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 scale-95'
                     }`}
                 >
                   <ShoppingCart className="w-4 h-4" /> List

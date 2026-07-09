@@ -10,13 +10,13 @@ function ShoppingList({ meals, categories }) {
 
   const groupedList = useMemo(() => {
     const categoriesMap = {};
-    
+
     DAYS.forEach(day => {
       Object.values(meals[day]).forEach(slotFoods => {
         slotFoods.forEach(food => {
           const cat = food.category || 'Altro';
           if (!categoriesMap[cat]) categoriesMap[cat] = {};
-          
+
           const key = food.name.toLowerCase().trim();
           if (!categoriesMap[cat][key]) {
             categoriesMap[cat][key] = {
@@ -36,10 +36,10 @@ function ShoppingList({ meals, categories }) {
       const items = Object.values(categoriesMap[cat]).map((item, index) => ({
         id: `shop-${cat}-${index}`,
         name: item.name,
-        quantity: item.quantities.join(' + ') || 'N/A',
+        quantity: Object.entries(item.quantities.reduce((acc, q) => { acc[q] = (acc[q] || 0) + 1; return acc; }, {})).map(([quantity, count]) => count > 1 ? `${count}x${quantity}` : quantity).join(' + '),
         alts: Array.from(item.alts).join(', ')
       })).sort((a, b) => a.name.localeCompare(b.name));
-      
+
       if (items.length > 0) {
         result.push({ category: cat, items });
       }
@@ -74,7 +74,7 @@ function ShoppingList({ meals, categories }) {
           <ShoppingBag className="w-6 h-6 text-[#005F6A]" /> Shopping List
         </h2>
         {checkedItems.size > 0 && (
-          <button 
+          <button
             onClick={clearChecked}
             className="no-print flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 border border-slate-200 rounded-md hover:bg-slate-100 hover:text-slate-900 transition-colors text-sm font-medium"
           >
@@ -101,9 +101,9 @@ function ShoppingList({ meals, categories }) {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {displayItems.map(item => (
-                    <ShoppingItem 
-                      key={item.id} 
-                      item={item} 
+                    <ShoppingItem
+                      key={item.id}
+                      item={item}
                       isChecked={checkedItems.has(item.id)}
                       onToggle={() => toggleCheck(item.id)}
                     />
